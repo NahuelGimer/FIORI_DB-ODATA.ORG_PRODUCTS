@@ -7,10 +7,15 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/ui/model/FilterType",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/export/library",
+	"sap/ui/export/Spreadsheet",
     "../utils/formatter/formatter"
 ], (Controller, MessageToast, MessageBox, Sorter, Filter, FilterOperator, FilterType,
-    JSONModel, formatter) => {
+    JSONModel, exportLibrary, Spreadsheet, formatter) => {
     "use strict";
+
+        
+    const EdmType = exportLibrary.EdmType;
 
     return Controller.extend("project101.controller.View1", {
         formatter: formatter,
@@ -52,6 +57,57 @@ sap.ui.define([
             // Aplicar los filtros a la lista
             oBinding.filter(aFilters, FilterType.Application);
         },
+
+        
+        createColumnConfig: function() {
+			const aCols = [];
+
+			aCols.push({
+				property: "ID"
+			});
+
+			aCols.push({
+				property: "Name"
+			});
+
+			aCols.push({
+				property: "Description"
+			});
+
+			aCols.push({
+				property: "Price"
+			});
+
+			aCols.push({
+				property: "Rating"
+			});
+			return aCols;
+		},
+
+        onExport: function() {
+			if (!this._oTable) {
+				this._oTable = this.byId("productsList");
+			}
+
+			const oTable = this._oTable;
+			const oRowBinding = oTable.getBinding("items");
+			const aCols = this.createColumnConfig();
+			const oSettings = {
+				workbook: {
+					columns: aCols,
+					hierarchyLevel: "Level"
+				},
+				dataSource: oRowBinding,
+				fileName: "Table of Products.xlsx",
+				worker: false // We need to disable worker because we are using a MockServer as OData Service
+			};
+
+			const oSheet = new Spreadsheet(oSettings);
+			oSheet.build().finally(function() {
+				oSheet.destroy();
+			});
+		},
+
 
         onCreate: function () {
             var oView = this.getView();
