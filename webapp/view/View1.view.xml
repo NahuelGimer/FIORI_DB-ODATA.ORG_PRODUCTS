@@ -98,6 +98,9 @@
                                                         tooltip="{i18n>sortAZButtonText}"
                                                         press=".onSortAZ"
                                                     />
+							<Button id="downloadExcelButton" icon="sap-icon://excel-attachment" 
+                                                        enabled="{= !${appView>/hasUIChanges}}"
+                                                        tooltip="{i18n>downloadExcelButtonText}" press="onExport"/>
                                                 </content>
                                             </OverflowToolbar>
                                         </headerToolbar>
