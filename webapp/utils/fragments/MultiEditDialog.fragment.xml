@@ -1,0 +1,35 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:sf="sap.ui.comp.smartform"
+		xmlns:smartField="sap.ui.comp.smartfield"
+		xmlns:core="sap.ui.core"
+		xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+		xmlns:smartmultiedit="sap.ui.comp.smartmultiedit">
+	<Dialog
+			title="Edit Multiple"
+			class="sapUiContentPadding"
+			id="multipleEditingDialog"
+			contentWidth="40rem"
+			horizontalScrolling="false">
+		<content>
+            <Label id="_IDGenLabel123" text="{i18n>IDText}"/>
+            <Input id="_IDGenInput1232" value="{mProduct>/Product/ID}" placeholder="{i18n>IDTextExample}"></Input>
+
+            <Label id="_IDGenLabel22" text="{i18n>productNameText}"/>
+            <Input id="_IDGenInpu22" value="{mProduct>/Product/PRODUCTNAME}" placeholder="{i18n>productNameTextExample}"></Input>
+
+            <Label id="_IDGenLabel222" text="{i18n>descriptionText}"/>
+            <Input id="_IDGenInpu222" value="{mProduct>/Product/PRODUCTDESCRIPTION}" placeholder="{i18n>descriptionTextExample}"></Input>
+
+            <Label id="_IDGenLabel2" text="{i18n>priceText}"/>
+            <Input id="_IDGenInpu2" value="{mProduct>/Product/PRODUCTPRICE}" placeholder="{i18n>priceTextExample}"></Input>
+
+            <Label id="_IDGenLabel3" text="{i18n>ratingText}"/>
+            <Input id="_IDGenInpu3" value="{mProduct>/Product/PRODUCTRATING}" placeholder="{i18n>ratingTextExample}"></Input>
+        </content>
+		<buttons>
+			           <Button id="_IDGenButton1" text="{i18n>save}" press=".openMultiEditDialog" type="Success" class="sapUiMarginBottom"></Button>
+            <Button id="_IDGenButton2" text="{i18n>cancel}" press=".closeMultiEditDialog" type="Negative" class="sapUiMarginBottom"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

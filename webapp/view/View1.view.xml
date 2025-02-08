@@ -1,0 +1,273 @@
+<mvc:View
+    controllerName="project101.controller.View1"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <Shell>
+        <App
+            busy="{appView>/busy}"
+            class="sapUiSizeCompact"
+        >
+            <pages>
+                <Page title="{i18n>productsTitle}">
+                    <content>
+                        <l:ResponsiveSplitter defaultPane="defaultPane">
+                            <l:PaneContainer orientation="Horizontal">
+                                <l:SplitPane id="defaultPane">
+                                    <l:layoutData>
+                                        <l:SplitterLayoutData
+                                            id="defaultLayout"
+                                            size="100%"
+                                            resizable="false"
+                                        />
+                                    </l:layoutData>
+
+                                    <Table
+                                        id="productsList"
+                                        growing="false"
+                                        growingThreshold="10"
+                                        items="{
+											path: '/Products'
+										}"
+
+                                        mode="SingleSelect"
+                                        selectionChange=".onSelectionChange"
+                                    >
+                                        <headerToolbar>
+                                            <OverflowToolbar>
+                                                <content>
+                                                    <ToolbarSpacer />
+                                                    <SearchField
+                                                        id="searchField"
+                                                        width="20%"
+                                                        placeholder="{i18n>searchIDFieldPlaceholder}"
+                                                        enabled="{= !${appView>/hasUIChanges}}"
+                                                        search=".onSearch"
+                                                    />
+                                                    <Button
+                                                        id="addUserButton"
+                                                        icon="sap-icon://add"
+                                                        tooltip="{i18n>createButtonText}"
+                                                        press=".onCreate"
+                                                    >
+                                                    </Button>
+                                                    <Button
+                                                        id="editUserButton"
+                                                        icon="sap-icon://edit"
+                                                        tooltip="{i18n>editButtonText}"
+                                                        press=".onEdit"
+                                                    >
+                                                    </Button>
+                                                    <Button
+                                                        id="deleteProductButton"
+                                                        icon="sap-icon://delete"
+                                                        tooltip="{i18n>deleteButtonText}"
+                                                        press=".onDelete"
+                                                    >
+                                                    </Button>
+                                                    <Button
+                                                        id="deleteSpecificProductButton"
+                                                        icon="sap-icon://clear-all"
+                                                        tooltip="{i18n>deleteSpecificButtonText}"
+                                                        press=".onDeleteSpecific"
+                                                    >
+                                                    </Button>
+                                                    <Button
+                                                        id="refreshUsersButton"
+                                                        icon="sap-icon://refresh"
+                                                        enabled="{= !${appView>/hasUIChanges}}"
+                                                        tooltip="{i18n>refreshButtonText}"
+                                                        press=".onRefresh"
+                                                    />
+                                                    <Button
+                                                        id="sortUsersButton"
+                                                        icon="sap-icon://sort"
+                                                        enabled="{= !${appView>/hasUIChanges}}"
+                                                        tooltip="{i18n>sortButtonText}"
+                                                        press=".onSort"
+                                                    />
+                                                    <Button
+                                                        id="sortAZUsersButton"
+                                                        icon="sap-icon://alphabetical-order"
+                                                        enabled="{= !${appView>/hasUIChanges}}"
+                                                        tooltip="{i18n>sortAZButtonText}"
+                                                        press=".onSortAZ"
+                                                    />
+                                                </content>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <columns>
+                                            <Column id="ID">
+                                                <Text   
+                                                    text="{i18n>IDText}"
+                                                />
+                                            </Column>
+                                            <Column id="productName">
+                                                <Text
+                                                    text="{i18n>productNameText}"
+                                                />
+                                            </Column>
+                                            <Column id="description">
+                                                <Text
+                                                    text="{i18n>descriptionText}"
+                                                />
+                                            </Column>
+                                            <Column id="price">
+                                                <Text
+                                                    text="{i18n>priceText}"
+                                                />
+                                            </Column>
+                                            <Column id="rating">
+                                                <Text
+                                                    text="{i18n>ratingText}"
+                                                />
+                                            </Column>
+                                        </columns>
+
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <ObjectStatus
+                                                        text="{parts: ['ID'],
+                                                        formatter:'.formatter.categoryType'}"
+                                                    />
+                                                </cells>
+                                                <cells>
+                                                    <Text
+                                                        text="{Name}"
+                                                    />
+                                                </cells>
+                                                <cells>
+                                                    <Text
+                                                        text="{Description}"
+                                                    />
+                                                </cells>
+                                                <cells>
+                                                    <ObjectStatus
+                                                        text="{parts: ['Price'],
+                    							formatter:'.formatter.statusPrice'}"
+      state="{parts: ['Price'], formatter:'.formatter.statusClass'}"
+                                                    />
+                                                </cells>
+                                                <cells>
+                                                    <ObjectStatus
+                                                    state="{= ${Rating} > 3 ? 'Success' : 'Error' }"
+                                                        text="{parts: ['Rating', 'i18n>Points']}"
+                                                    />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </l:SplitPane>
+                                <l:SplitPane>
+                                    <!--Details-->
+                                    <!--remove busy-->
+                                    <semantic:SemanticPage
+                                        id="detailArea"
+                                        visible="false"
+                                    >
+                                        <semantic:titleHeading>
+                                            <Title
+                                                text="{i18n>detailView}"
+                                                level="H2"
+                                            />
+                                        </semantic:titleHeading>
+                                        <!--remove busy
+                                        <semantic:headerContent>
+                                            <core:Fragment xmlns:core="sap.ui.core"
+                                                xmlns:m="sap.m" id="idFragHeader" fragmentName="sapui5final.utils.fragments.Detail-View" type="XML"/>
+                                        </semantic:headerContent>-->
+                                        <semantic:content>
+                                            <VBox>
+                                                <HBox>
+                                                    <Button
+                                                        text="{i18n>confirm}"
+                                                        class="sapUiSmallMarginBottom"
+                                                        id="confirmBtn"
+                                                        press=".onConfirmationMessageBoxPress"
+                                                        width="200px"
+                                                        ariaHasPopup="Dialog"
+                                                        type="Accept"
+                                                    />
+                                                    <Button
+                                                        text="{i18n>deny}"
+                                                        class="sapUiSmallMarginBottom"
+                                                        id="denyBtn"
+                                                        press=".onInfoMessageBoxPress"
+                                                        width="200px"
+                                                        ariaHasPopup="Dialog"
+                                                        type="Reject"
+                                                    />
+                                                </HBox>
+
+                                                <Table
+                                                    id="friendsTable"
+                                                    width="auto"
+                                                    items="{product>/Products}"
+                                                    noDataText="No Data"
+                                                    class="sapUiSmallMarginBottom"
+                                                >
+                                                    <headerToolbar>
+                                                        <Toolbar>
+                                                            <Title
+                                                                text="{i18n>orders}"
+                                                                titleStyle="H3"
+                                                                level="H3"
+                                                            />
+                                                        </Toolbar>
+                                                    </headerToolbar>
+                                                    <columns>
+                                                        <Column>
+                                                            <Text
+                                                                text="{i18n>productIdText}"
+                                                            />
+                                                        </Column>
+                                                        <Column>
+                                                            <Text
+                                                                text="{i18n>productNameText}"
+                                                            />
+                                                        </Column>
+                                                        <Column>
+                                                            <Text
+                                                                text="{i18n>unitsOnOrderText}"
+                                                            />
+                                                        </Column>
+                                                    </columns>
+                                                    <items>
+                                                        <ColumnListItem>
+                                                            <cells>
+                                                                <Text
+                                                                    text="{product>Status}"
+                                                                />
+                                                            </cells>
+                                                            <cells>
+                                                                <Text
+                                                                    text="{product>ProductName}"
+                                                                />
+                                                            </cells>
+                                                            <cells>
+                                                                <Text
+                                                                    text="{product>Quantity}"
+                                                                />
+                                                            </cells>
+                                                        </ColumnListItem>
+                                                    </items>
+                                                </Table>
+                                            </VBox>
+                                        </semantic:content>
+                                    </semantic:SemanticPage>
+                                </l:SplitPane>
+                            </l:PaneContainer>
+                        </l:ResponsiveSplitter>
+                    </content>
+                    <footer />
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>
