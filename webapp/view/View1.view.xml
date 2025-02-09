@@ -207,60 +207,6 @@
                                                         type="Reject"
                                                     />
                                                 </HBox>
-
-                                                <Table
-                                                    id="friendsTable"
-                                                    width="auto"
-                                                    items="{product>/Products}"
-                                                    noDataText="No Data"
-                                                    class="sapUiSmallMarginBottom"
-                                                >
-                                                    <headerToolbar>
-                                                        <Toolbar>
-                                                            <Title
-                                                                text="{i18n>orders}"
-                                                                titleStyle="H3"
-                                                                level="H3"
-                                                            />
-                                                        </Toolbar>
-                                                    </headerToolbar>
-                                                    <columns>
-                                                        <Column>
-                                                            <Text
-                                                                text="{i18n>productIdText}"
-                                                            />
-                                                        </Column>
-                                                        <Column>
-                                                            <Text
-                                                                text="{i18n>productNameText}"
-                                                            />
-                                                        </Column>
-                                                        <Column>
-                                                            <Text
-                                                                text="{i18n>unitsOnOrderText}"
-                                                            />
-                                                        </Column>
-                                                    </columns>
-                                                    <items>
-                                                        <ColumnListItem>
-                                                            <cells>
-                                                                <Text
-                                                                    text="{product>Status}"
-                                                                />
-                                                            </cells>
-                                                            <cells>
-                                                                <Text
-                                                                    text="{product>ProductName}"
-                                                                />
-                                                            </cells>
-                                                            <cells>
-                                                                <Text
-                                                                    text="{product>Quantity}"
-                                                                />
-                                                            </cells>
-                                                        </ColumnListItem>
-                                                    </items>
-                                                </Table>
                                             </VBox>
                                         </semantic:content>
                                     </semantic:SemanticPage>
