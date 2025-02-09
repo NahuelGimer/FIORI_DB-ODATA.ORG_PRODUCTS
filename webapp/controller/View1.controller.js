@@ -21,7 +21,7 @@ sap.ui.define([
         formatter: formatter,
         onInit() {
             this.Odata = this.getView().getModel();
-            var data = { Product: { ID: "", PRODUCTNAME: "", PRODUCTDESCRIPTION: "", PRODUCTVALUE: "", PRODUCTRATING: "" } }
+            var data = { Product: { ID: "", PRODUCTNAME: "", PRODUCTDESCRIPTION: "", PRODUCTPRICE: "", PRODUCTRATING: "" } }
             var oJSONData = {
                 busy: false,
                 order: 0
