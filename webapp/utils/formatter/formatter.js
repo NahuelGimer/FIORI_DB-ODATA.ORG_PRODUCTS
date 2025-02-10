@@ -16,7 +16,7 @@ sap.ui.define([], function () {
         },
         statusClass: function (Price) {
             var res = "";
-            if (Price >= 100) {
+            if (Price > 100) {
                 res = "Error";
             }
             else if (Price > 10 && Price < 100) {
