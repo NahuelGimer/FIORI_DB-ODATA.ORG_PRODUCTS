@@ -3,7 +3,7 @@ sap.ui.define([], function () {
     return {
         statusPrice: function (Price) {
             var res = "";
-            if (Price >= 100) {
+            if (Price > 100) {
                 res = Price + " Alto";
             }
             else if (Price > 10 && Price < 100) {
